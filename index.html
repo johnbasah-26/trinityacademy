@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trinity Academy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .hero-slide { display: none; }
+    .hero-slide.active { display: block; animation: fade 1s ease-in-out; }
+    @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
+
+    /* Dropdown animations */
+    .dropdown-menu {
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: all 0.3s ease-in-out;
+      pointer-events: none;
+    }
+    .dropdown-menu.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Accordion animation */
+    .panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out;
+    }
+    .panel.show {
+      max-height: 500px;
+    }
+
+    /* Active desktop dropdown button */
+    .dropdown-btn.active {
+      font-weight: bold;
+      border-bottom: 2px solid white;
+    }
+
+    /* Navbar shrink */
+    header {
+      transition: all 0.4s ease-in-out;
+    }
+    header.shrink {
+      height: 64px !important;
+    }
+    header.shrink img {
+      height: 40px !important;
+      width: 40px !important;
+    }
+    header.shrink span {
+      font-size: 1rem !important;
+    }
+
+    /* Enroll Now animation */
+    .enroll-animate {
+      animation: pulseFade 2s infinite;
+    }
+    @keyframes pulseFade {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="font-sans text-gray-900">
+
+  <!-- Navbar -->
+  <header class="bg-gradient-to-r from-blue-950 via-blue-900 to-blue-600 text-white shadow-lg fixed top-0 left-0 w-full z-50 h-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+      <div class="flex justify-between items-center h-full transition-all">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center space-x-3">
+          <img src="logo.jpg" alt="Trinity Academy Logo" class="h-12 w-12 rounded-full transition-all">
+          <span class="font-bold text-xl tracking-wide transition-all">Trinity Academy</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <nav class="hidden md:flex space-x-8 text-white font-medium relative">
+          <a href="index.html" class="hover:text-gray-200 transition duration-300 hover:scale-105">Home</a>
+
+          <!-- Dropdown -->
+          <div class="relative dropdown">
+            <button class="hover:text-gray-200 transition duration-300 hover:scale-105 dropdown-btn">About Us ▾</button>
+            <div class="dropdown-menu absolute hidden bg-white text-blue-900 mt-2 rounded shadow-lg w-44">
+              <a href="#about" class="block px-4 py-2 hover:bg-blue-100 transition duration-300 hover:pl-2">Mission/Vision</a>
+              <a href="#about" class="block px-4 py-2 hover:bg-blue-100 transition duration-300 hover:pl-2">Core Values</a>
+              <!-- <a href="#about" class="block px-4 py-2 hover:bg-blue-100 transition duration-300 hover:pl-2">Mission & Vision</a> -->
+            </div>
+          </div>
+
+          <div class="relative dropdown">
+            <button class="hover:text-gray-200 transition duration-300 hover:scale-105 dropdown-btn">Academics ▾</button>
+            <div class="dropdown-menu absolute hidden bg-white text-blue-900 mt-2 rounded shadow-lg w-44">
+              <a href="#academics" class="block px-4 py-2 hover:bg-blue-100 transition duration-300 hover:pl-2">Programs</a>
+              <a href="#academics" class="block px-4 py-2 hover:bg-blue-100 transition duration-300 hover:pl-2">Curriculum</a>
+              <a href="#academics" class="block px-4 py-2 hover:bg-blue-100 transition duration-300 hover:pl-2">Library</a>
+            </div>
+          </div>
+
+          <div class="relative dropdown">
+            <button class="hover:text-gray-200 transition duration-300 hover:scale-105 dropdown-btn">Admissions ▾</button>
+            <div class="dropdown-menu absolute hidden bg-white text-blue-900 mt-2 rounded shadow-lg w-44">
+              <a href="#admissions" class="block px-4 py-2 hover:bg-blue-100 transition duration-300 hover:pl-2">Apply here</a>
+              <a href="#admissions" class="block px-4 py-2 hover:bg-blue-100 transition duration-300 hover:pl-2">Fees</a>
+              <!-- <a href="#admissions" class="block px-4 py-2 hover:bg-blue-100 transition duration-300 hover:pl-2">Scholarships</a> -->
+            </div>
+          </div>
+
+          <a href="#results" class="hover:text-gray-200 transition duration-300 hover:scale-105">Results</a>
+          <a href="#gallery" class="hover:text-gray-200 transition duration-300 hover:scale-105">Gallery</a>
+          <a href="#contact" class="hover:text-gray-200 transition duration-300 hover:scale-105">Contact</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button id="menu-btn" class="focus:outline-none">
+            <svg class="h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="max-h-0 md:hidden bg-blue-900 overflow-hidden transition-all duration-500">
+      <nav class="flex flex-col px-6 py-4 space-y-2">
+        <a href="index.html" class="text-white hover:text-gray-300 transition duration-300 hover:pl-2">Home</a>
+
+        <!-- Accordion -->
+        <div>
+          <button class="accordion text-left text-white w-full py-2 transition duration-300 hover:pl-2">About Us ▾</button>
+          <div class="panel ml-4">
+            <a href="#about" class="block text-white hover:text-gray-300 py-1 transition duration-300 hover:pl-2">Mission/Vision</a>
+            <a href="#about" class="block text-white hover:text-gray-300 py-1 transition duration-300 hover:pl-2">Core Values</a>
+            <!-- <a href="#about" class="block text-white hover:text-gray-300 py-1 transition duration-300 hover:pl-2">Mission & Vision</a> -->
+          </div>
+        </div>
+
+        <div>
+          <button class="accordion text-left text-white w-full py-2 transition duration-300 hover:pl-2">Academics ▾</button>
+          <div class="panel ml-4">
+            <a href="#academics" class="block text-white hover:text-gray-300 py-1 transition duration-300 hover:pl-2">Programs</a>
+            <a href="#academics" class="block text-white hover:text-gray-300 py-1 transition duration-300 hover:pl-2">Curriculum</a>
+            <a href="#academics" class="block text-white hover:text-gray-300 py-1 transition duration-300 hover:pl-2">Library</a>
+          </div>
+        </div>
+
+        <div>
+          <button class="accordion text-left text-white w-full py-2 transition duration-300 hover:pl-2">Admissions ▾</button>
+          <div class="panel ml-4">
+            <a href="#admissions" class="block text-white hover:text-gray-300 py-1 transition duration-300 hover:pl-2">Apply here</a>
+            <a href="#admissionsl" class="block text-white hover:text-gray-300 py-1 transition duration-300 hover:pl-2">Fees</a>
+            <!-- <a href="scholarships.html" class="block text-white hover:text-gray-300 py-1 transition duration-300 hover:pl-2">Scholarships</a> -->
+          </div>
+        </div>
+
+        <a href="#results" class="text-white hover:text-gray-300 transition duration-300 hover:pl-2">Results</a>
+        <a href="#gallery" class="text-white hover:text-gray-300 transition duration-300 hover:pl-2">Gallery</a>
+        <a href="#contact" class="text-white hover:text-gray-300 transition duration-300 hover:pl-2">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative mt-20"> <!-- offset for sticky navbar -->
+    <div class="relative w-full h-[500px] overflow-hidden">
+      <!-- Slides -->
+      <div class="hero-slide active absolute inset-0">
+        <img src="4.jpg" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center space-y-6">
+          <h1 class="text-white text-4xl lg:text-6xl font-bold">Welcome to Trinity Academy</h1>
+          <!-- <a href="admissions.html#how-to-apply" class="enroll-animate bg-yellow-400 text-blue-900 font-semibold px-6 py-3 rounded-lg shadow hover:bg-yellow-300 transition">Enroll Now</a> -->
+        </div>
+      </div>
+      <div class="hero-slide absolute inset-0">
+        <img src="2.webp" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center space-y-6">
+          <h1 class="text-white text-4xl lg:text-6xl font-bold">Excellence in Education</h1>
+          <!-- <a href="admissions.html#how-to-apply" class="enroll-animate bg-yellow-400 text-blue-900 font-semibold px-6 py-3 rounded-lg shadow hover:bg-yellow-300 transition">Enroll Now</a> -->
+        </div>
+      </div>
+      <div class="hero-slide absolute inset-0">
+        <img src="4.jpg" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center space-y-6">
+          <h1 class="text-white text-4xl lg:text-6xl font-bold">Discipline & Character</h1>
+          <!-- <a href="admissions.html#how-to-apply" class="enroll-animate bg-yellow-400 text-blue-900 font-semibold px-6 py-3 rounded-lg shadow hover:bg-yellow-300 transition">Enroll Now</a> -->
+        </div>
+      </div>
+      <div class="hero-slide absolute inset-0">
+        <img src="1.jpg" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center space-y-6">
+          <h1 class="text-white text-4xl lg:text-6xl font-bold">Value Additon Key</h1>
+          <!-- <a href="admissions.html#how-to-apply" class="enroll-animate bg-yellow-400 text-blue-900 font-semibold px-6 py-3 rounded-lg shadow hover:bg-yellow-300 transition">Enroll Now</a> -->
+        </div>
+      </div>
+      <div class="hero-slide absolute inset-0">
+        <img src="p1.jpg" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center space-y-6">
+          <h1 class="text-white text-4xl lg:text-6xl font-bold">Science education is priority</h1>
+          <!-- <a href="admissions.html#how-to-apply" class="enroll-animate bg-yellow-400 text-blue-900 font-semibold px-6 py-3 rounded-lg shadow hover:bg-yellow-300 transition">Enroll Now</a> -->
+        </div>
+      </div>
+      <div class="hero-slide absolute inset-0">
+        <img src="p3.jpg" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center space-y-6">
+          <h1 class="text-white text-4xl lg:text-6xl font-bold">Leadership and Enterprenuership</h1>
+          <!-- <a href="admissions.html#how-to-apply" class="enroll-animate bg-yellow-400 text-blue-900 font-semibold px-6 py-3 rounded-lg shadow hover:bg-yellow-300 transition">Enroll Now</a> -->
+        </div>
+      </div>
+      
+
+      <!-- Prev/Next -->
+      <button id="prev" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-40 text-white p-3 rounded-full hover:scale-110 transition">❮</button>
+      <button id="next" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-40 text-white p-3 rounded-full hover:scale-110 transition">❯</button>
+
+      <!-- Dots -->
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3">
+        <span class="dot w-3 h-3 bg-white rounded-full cursor-pointer transition"></span>
+        <span class="dot w-3 h-3 bg-gray-400 rounded-full cursor-pointer transition"></span>
+        <span class="dot w-3 h-3 bg-gray-400 rounded-full cursor-pointer transition"></span>
+        <span class="dot w-3 h-3 bg-gray-400 rounded-full cursor-pointer transition"></span>
+        <span class="dot w-3 h-3 bg-gray-400 rounded-full cursor-pointer transition"></span>
+         <span class="dot w-3 h-3 bg-gray-400 rounded-full cursor-pointer transition"></span>
+      </div>
+    </div>
+  </section>
+
+<!-- === About Us Section === -->
+<section id="about" class="py-20 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6 text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">About Trinity Academy</h2>
+    <p class="text-gray-700 max-w-3xl mx-auto">
+      Trinity Academy is built on the foundation of discipline, academic excellence, and moral integrity.
+    </p>
+  </div>
+
+  <!-- Mission & Vision -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto px-6 mb-16">
+    <!-- Mission -->
+    <div class="relative group overflow-hidden rounded-2xl shadow-lg">
+      <img src="1.jpg" class="w-full h-72 object-cover">
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white transition-opacity duration-500">
+        <h3 class="text-2xl font-bold mb-3">Our Mission</h3>
+        <button onclick="toggleDetails('mission')" class="bg-yellow-400 text-blue-900 font-semibold px-4 py-2 rounded shadow hover:bg-yellow-300 transition">Read More</button>
+      </div>
+      <!-- Hidden Details -->
+      <div id="mission" class="absolute inset-0 bg-black bg-opacity-80 text-white p-6 flex flex-col items-center justify-center text-center opacity-0 pointer-events-none transition duration-500">
+        <p class="mb-6">To nurture responsible, disciplined, and academically excellent students prepared to contribute positively to society.</p>
+        <button onclick="toggleDetails('mission')" class="text-blue-400 text-3xl font-bold hover:text-blue-300">&times;</button>
+      </div>
+    </div>
+
+    <!-- Vision -->
+    <div class="relative group overflow-hidden rounded-2xl shadow-lg">
+      <img src="3.jpg" class="w-full h-72 object-cover">
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white transition-opacity duration-500">
+        <h3 class="text-2xl font-bold mb-3">Our Vision</h3>
+        <button onclick="toggleDetails('vision')" class="bg-yellow-400 text-blue-900 font-semibold px-4 py-2 rounded shadow hover:bg-yellow-300 transition">Read More</button>
+      </div>
+      <!-- Hidden Details -->
+      <div id="vision" class="absolute inset-0 bg-black bg-opacity-80 text-white p-6 flex flex-col items-center justify-center text-center opacity-0 pointer-events-none transition duration-500">
+        <p class="mb-6">To become a leading institution recognized for holistic education, innovation, and character formation.</p>
+        <button onclick="toggleDetails('vision')" class="text-blue-400 text-3xl font-bold hover:text-blue-300">&times;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core Values Accordion -->
+  <div class="max-w-6xl mx-auto px-6">
+    <button onclick="toggleAccordion()" class="w-full bg-blue-900 text-white py-3 rounded-lg shadow hover:bg-blue-800 transition font-semibold flex items-center justify-center gap-2">
+      <i class="fas fa-star text-yellow-400"></i> Our Core Values ▾
+    </button>
+
+    <!-- Hidden Panel -->
+    <div id="coreValuesPanel" class="max-h-0 overflow-hidden transition-all duration-500">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-6">
+        <!-- Value 1 -->
+        <div class="bg-gradient-to-r from-green-900 to-blue-700 text-white rounded-2xl shadow-lg p-8 text-center transition transform hover:scale-105 hover:shadow-2xl">
+          <i class="fas fa-user-shield text-yellow-400 text-3xl mb-3"></i>
+          <h4 class="text-xl font-semibold mb-3">Discipline</h4>
+          <p class="text-gray-200">We instill discipline to build strong moral character in our students.</p>
+        </div>
+        <!-- Value 2 -->
+        <div class="bg-gradient-to-r from-red-900 to-blue-700 text-white rounded-2xl shadow-lg p-8 text-center transition transform hover:scale-105 hover:shadow-2xl">
+          <i class="fas fa-graduation-cap text-yellow-400 text-3xl mb-3"></i>
+          <h4 class="text-xl font-semibold mb-3">Excellence</h4>
+          <p class="text-gray-200">We strive for academic and extracurricular excellence in all aspects.</p>
+        </div>
+        <!-- Value 3 -->
+        <div class="bg-gradient-to-r from-yellow-900 to-blue-700 text-white rounded-2xl shadow-lg p-8 text-center transition transform hover:scale-105 hover:shadow-2xl">
+          <i class="fas fa-handshake text-yellow-400 text-3xl mb-3"></i>
+          <h4 class="text-xl font-semibold mb-3">Integrity</h4>
+          <p class="text-gray-200">We uphold honesty, transparency, and integrity in every action.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JS -->
+<script>
+  // Toggle Mission/Vision details
+  function toggleDetails(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle("opacity-0");
+    el.classList.toggle("pointer-events-none");
+  }
+
+  // Toggle Core Values accordion
+  function toggleAccordion() {
+    const panel = document.getElementById("coreValuesPanel");
+    if (panel.classList.contains("max-h-0")) {
+      panel.classList.remove("max-h-0");
+      panel.classList.add("max-h-[1000px]");
+    } else {
+      panel.classList.add("max-h-0");
+      panel.classList.remove("max-h-[1000px]");
+    }
+  }
+</script>
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+
+<!-- ================== A C A D E M I C S  (Cards + Popups + Local Placeholders) ================== -->
+<section id="academics" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-blue-900">Academics</h2>
+      <p class="text-gray-600 mt-2">Discover our learning paths designed for every stage.</p>
+    </div>
+
+    <!-- Cards -->
+    <div class="space-y-8">
+      <!-- Preschool -->
+      <article id="ps-article" class="rounded-2xl shadow-lg hover:shadow-2xl transition overflow-hidden border">
+        <div class="grid md:grid-cols-3">
+          <!-- Image (2/3) -->
+          <div class="relative md:col-span-2">
+            <img src="6.jpg" alt="Preschool"
+                 class="w-full h-64 md:h-full object-cover">
+            <span
+              class="absolute top-4 left-4 bg-white/95 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full shadow">
+              🧸 Preschool
+            </span>
+          </div>
+          <!-- Content (1/3) -->
+          <div class="p-6 flex flex-col justify-center bg-gray-50">
+            <h3 class="text-2xl font-bold text-blue-900">Preschool</h3>
+            <p class="text-gray-600 mt-2 hidden md:block">Early years foundation with play-based learning.</p>
+            <div class="mt-6">
+              <button
+                class="learn-btn inline-block w-full md:w-auto bg-blue-900 text-white font-semibold px-5 py-2 rounded-lg shadow hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition"
+                data-target="#ps-info">Learn More</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pop-up info (Preschool) - no curriculum/library here; only Programs -->
+        <div id="ps-info"
+             class="info-panel max-h-0 opacity-0 overflow-hidden transition-all duration-500 bg-white border-t border-gray-100">
+          <div class="p-6 grid md:grid-cols-3 gap-6">
+            <p class="md:col-span-2 text-gray-700 leading-relaxed">
+              Our Preschool nurtures curiosity and social skills through guided play, music, art, and movement.
+              We build early literacy and numeracy in a safe, caring environment.
+            </p>
+            <div class="space-y-3">
+              <button class="go-btn block w-full text-center bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition"
+                      data-placeholder="#ps-programs-placeholder">
+                Go to Programs
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Programs placeholder for Preschool (hidden under Preschool) -->
+      <div id="ps-programs-placeholder" class="placeholder-panel max-h-0 opacity-0 overflow-hidden transition-all duration-500 mt-4">
+        <div class="rounded-2xl shadow-lg overflow-hidden border bg-gray-50">
+          <div class="grid md:grid-cols-3">
+            <div class="md:col-span-2">
+              <img src="1.jpg" alt="Programs"
+                   class="w-full h-56 object-cover">
+            </div>
+            <div class="p-6 flex flex-col justify-center">
+              <span class="inline-block bg-white/95 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full shadow mb-3">🎯 Focus Tracks</span>
+              <h4 class="text-xl font-bold text-blue-900">STEM • Arts • Language</h4>
+              <p class="text-gray-700 mt-2">Explore specialized tracks that build depth and passion for young learners.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Primary -->
+      <article id="pr-article" class="rounded-2xl shadow-lg hover:shadow-2xl transition overflow-hidden border">
+        <div class="grid md:grid-cols-3">
+          <!-- Image (2/3) -->
+          <div class="relative md:col-span-2">
+            <img src="3.jpg" alt="Primary"
+                 class="w-full h-64 md:h-full object-cover">
+            <span
+              class="absolute top-4 left-4 bg-white/95 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full shadow">
+              📚 Primary
+            </span>
+          </div>
+          <!-- Content (1/3) -->
+          <div class="p-6 flex flex-col justify-center bg-gray-50">
+            <h3 class="text-2xl font-bold text-blue-900">Primary</h3>
+            <p class="text-gray-600 mt-2 hidden md:block">Strong literacy, numeracy, and character education.</p>
+            <div class="mt-6">
+              <button
+                class="learn-btn inline-block w-full md:w-auto bg-blue-900 text-white font-semibold px-5 py-2 rounded-lg shadow hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition"
+                data-target="#pr-info">Learn More</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pop-up info (Primary) - includes Go to Curriculum -->
+        <div id="pr-info"
+             class="info-panel max-h-0 opacity-0 overflow-hidden transition-all duration-500 bg-white border-t border-gray-100">
+          <div class="p-6 grid md:grid-cols-3 gap-6">
+            <p class="md:col-span-2 text-gray-700 leading-relaxed">
+              Our Primary program blends core academics with creativity, collaboration, and problem solving.
+              Learners build confidence through projects, clubs, and regular assessments.
+            </p>
+            <div class="space-y-3">
+              <button class="go-btn block w-full text-center bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition"
+                      data-placeholder="#pr-curriculum-placeholder">
+                Go to Curriculum
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Curriculum placeholder for Primary (hidden under Primary) -->
+      <div id="pr-curriculum-placeholder" class="placeholder-panel max-h-0 opacity-0 overflow-hidden transition-all duration-500 mt-4">
+        <div class="rounded-2xl shadow-lg overflow-hidden border bg-white">
+          <div class="grid md:grid-cols-3">
+            <div class="relative">
+              <img src="4.jpg" alt="Curriculum"
+                   class="w-full h-56 object-cover">
+            </div>
+            <div class="p-6 flex flex-col justify-center md:col-span-2">
+              <span class="inline-block bg-white/95 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full shadow mb-3">📖 Core</span>
+              <h4 class="text-xl font-bold text-blue-900">English • Math • Science</h4>
+              <p class="text-gray-700 mt-2">Aligned to national standards with continuous assessment to track progress.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JHS -->
+      <article id="jh-article" class="rounded-2xl shadow-lg hover:shadow-2xl transition overflow-hidden border">
+        <div class="grid md:grid-cols-3">
+          <!-- Image (2/3) -->
+          <div class="relative md:col-span-2">
+            <img src="r.jpg" alt="JHS"
+                 class="w-full h-64 md:h-full object-cover">
+            <span
+              class="absolute top-4 left-4 bg-white/95 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full shadow">
+              🎓 JHS
+            </span>
+          </div>
+          <!-- Content (1/3) -->
+          <div class="p-6 flex flex-col justify-center bg-gray-50">
+            <h3 class="text-2xl font-bold text-blue-900">Junior High School</h3>
+            <p class="text-gray-600 mt-2 hidden md:block">Exam readiness, leadership, and STEM exploration.</p>
+            <div class="mt-6">
+              <button
+                class="learn-btn inline-block w-full md:w-auto bg-blue-900 text-white font-semibold px-5 py-2 rounded-lg shadow hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition"
+                data-target="#jh-info">Learn More</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pop-up info (JHS) - includes Go to Library -->
+        <div id="jh-info"
+             class="info-panel max-h-0 opacity-0 overflow-hidden transition-all duration-500 bg-white border-t border-gray-100">
+          <div class="p-6 grid md:grid-cols-3 gap-6">
+            <p class="md:col-span-2 text-gray-700 leading-relaxed">
+              JHS students deepen subject mastery, engage in STEM clubs, and prepare for national exams with personalized support.
+            </p>
+            <div class="space-y-3">
+              <button class="go-btn block w-full text-center bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition"
+                      data-placeholder="#jh-library-placeholder">
+                Go to Library
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Library placeholder for JHS (hidden under JHS) -->
+      <div id="jh-library-placeholder" class="placeholder-panel max-h-0 opacity-0 overflow-hidden transition-all duration-500 mt-4">
+        <div class="rounded-2xl shadow-lg overflow-hidden border bg-gray-50">
+          <div class="grid md:grid-cols-3">
+            <div class="md:col-span-2">
+              <img src="p3.jpg" alt="Library"
+                   class="w-full h-56 object-cover">
+            </div>
+            <div class="p-6 flex flex-col justify-center">
+              <span class="inline-block bg-white/95 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full shadow mb-3">📚 Resources</span>
+              <h4 class="text-xl font-bold text-blue-900">Books • Journals • Media</h4>
+              <p class="text-gray-700 mt-2">Curated collections that support research and reading culture for older students.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================== J S  (Learn More toggles + Show local placeholders + Smooth scroll into view) ================== -->
+<script>
+  // Helper to close all info panels
+  function closeAllInfoPanels() {
+    document.querySelectorAll('.info-panel').forEach(p => {
+      p.classList.add('max-h-0', 'opacity-0');
+      p.classList.remove('max-h-[900px]', 'opacity-100');
+    });
+  }
+
+  // Helper to close all placeholders
+  function closeAllPlaceholders() {
+    document.querySelectorAll('.placeholder-panel').forEach(p => {
+      p.classList.add('max-h-0', 'opacity-0');
+      p.classList.remove('max-h-[900px]', 'opacity-100');
+    });
+  }
+
+  // Toggle “Learn More” panels
+  document.querySelectorAll('.learn-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.querySelector(btn.dataset.target);
+      const isClosed = target.classList.contains('max-h-0');
+
+      // Close other info panels (optional)
+      closeAllInfoPanels();
+
+      // Toggle clicked panel
+      if (isClosed) {
+        target.classList.remove('max-h-0', 'opacity-0');
+        target.classList.add('max-h-[900px]', 'opacity-100');
+      } else {
+        target.classList.add('max-h-0', 'opacity-0');
+        target.classList.remove('max-h-[900px]', 'opacity-100');
+      }
+
+      // Also close placeholders so user focuses on the panel content
+      closeAllPlaceholders();
+    });
+  });
+
+  // When a Go button is clicked, reveal the placeholder immediately under the level
+  document.querySelectorAll('.go-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const placeholder = document.querySelector(btn.dataset.placeholder);
+      if (!placeholder) return;
+
+      const isClosed = placeholder.classList.contains('max-h-0');
+
+      // Close other placeholders
+      closeAllPlaceholders();
+
+      if (isClosed) {
+        placeholder.classList.remove('max-h-0', 'opacity-0');
+        placeholder.classList.add('max-h-[900px]', 'opacity-100');
+
+        // ensure the placeholder is visible in viewport with small scroll (not far)
+        const y = placeholder.getBoundingClientRect().top + window.pageYOffset - 100; // offset for navbar
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      } else {
+        placeholder.classList.add('max-h-0', 'opacity-0');
+        placeholder.classList.remove('max-h-[900px]', 'opacity-100');
+      }
+    });
+  });
+
+  // Close any open panels/placeholders if user clicks outside (optional UX)
+  document.addEventListener('click', (e) => {
+    const isLearnBtn = e.target.closest('.learn-btn');
+    const isGoBtn = e.target.closest('.go-btn');
+    const isInsidePanel = e.target.closest('.info-panel') || e.target.closest('.placeholder-panel');
+
+    if (!isLearnBtn && !isGoBtn && !isInsidePanel) {
+      closeAllInfoPanels();
+      // don't force-close placeholders on casual clicks to keep them visible; comment out if you prefer auto-close
+      // closeAllPlaceholders();
+    }
+  });
+</script>
+
+
+
+<!-- === Admissions Section (Start) === -->
+<section id="admissions" class="py-16 bg-gradient-to-b from-white via-blue-50 to-white">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Admissions</h2>
+    <p class="text-gray-700 max-w-2xl mx-auto">
+      Trinity Academy welcomes students into an environment of excellence, discipline, and character.
+      Discover how to apply and join our family today.
+    </p>
+  </div>
+</section>
+<!-- CTA Section with Enroll + Pay Fees buttons -->
+<section class="bg-gradient-to-r from-blue-900 to-blue-600 text-white py-16 text-center">
+  <h2 class="text-3xl font-bold mb-4">Welcome to Trinity Academy</h2>
+  <p class="mb-6">Excellence in Learning and Character</p>
+  <div class="space-x-4">
+    <button id="openAdmissions" class="px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-100 transition ease-in-out duration-300">
+      Enroll Now
+    </button>
+    <button id="openFees" class="px-6 py-3 bg-yellow-400 text-black font-semibold rounded-lg hover:bg-yellow-300 transition ease-in-out duration-300">
+      Pay Fees
+    </button>
+  </div>
+</section>
+
+<!-- ======================= ADMISSIONS MODAL ======================= -->
+<div id="admissionsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 relative p-6">
+    <button id="closeAdmissions" class="absolute top-3 right-3 text-2xl text-blue-700">&times;</button>
+    <h3 class="text-xl font-bold mb-4">Admissions Form</h3>
+    <form id="admissionsForm" class="space-y-4">
+      <input type="text" name="studentName" placeholder="Student Full Name" class="w-full border p-2 rounded" required>
+      <input type="number" name="studentAge" placeholder="Age" class="w-full border p-2 rounded" required>
+      <input type="text" name="classApplying" placeholder="Class Applying For" class="w-full border p-2 rounded" required>
+      <input type="text" name="parentName" placeholder="Parent/Guardian Name" class="w-full border p-2 rounded" required>
+      <input type="tel" name="parentPhone" placeholder="Parent/Guardian Phone" class="w-full border p-2 rounded" required>
+      <input type="email" name="parentEmail" placeholder="Parent/Guardian Email" class="w-full border p-2 rounded" required>
+      <label class="block font-semibold">Upload Passport Photo:</label>
+      <input type="file" id="passportPhoto" accept="image/*" class="w-full border p-2 rounded">
+    </form>
+    <div class="mt-4 text-right">
+      <button id="downloadPDF" class="px-6 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition">Download PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= FEES MODAL ======================= -->
+<div id="feesModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 relative p-6">
+    <button id="closeFees" class="absolute top-3 right-3 text-2xl text-blue-700">&times;</button>
+    <h3 class="text-xl font-bold mb-4">Fee Payment Portal</h3>
+    <form id="feesForm" class="space-y-4">
+      <input type="text" name="studentID" placeholder="Student ID" class="w-full border p-2 rounded" required>
+      <input type="text" name="studentName" placeholder="Student Full Name" class="w-full border p-2 rounded" required>
+      <input type="text" name="class" placeholder="Class" class="w-full border p-2 rounded" required>
+      <input type="number" name="amount" placeholder="Amount (GHS)" class="w-full border p-2 rounded" required>
+      <select name="paymentMethod" class="w-full border p-2 rounded" required>
+        <option value="">Select Payment Method</option>
+        <option value="MTN Mobile Money">MTN Mobile Money</option>
+        <option value="Vodafone Cash">Vodafone Cash</option>
+        <option value="AirtelTigo Money">AirtelTigo Money</option>
+        <option value="Bank Transfer">Bank Transfer</option>
+      </select>
+    </form>
+    <div class="mt-4 text-right">
+      <button id="submitFees" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">Submit Payment</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= JS SECTION ======================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  const admissionsModal = document.getElementById('admissionsModal');
+  const feesModal = document.getElementById('feesModal');
+
+  // Buttons
+  const openAdmissionsBtn = document.getElementById('openAdmissions');
+  const openFeesBtn = document.getElementById('openFees');
+  const closeAdmissionsBtn = document.getElementById('closeAdmissions');
+  const closeFeesBtn = document.getElementById('closeFees');
+
+  // Open modals
+  openAdmissionsBtn.addEventListener('click', () => admissionsModal.classList.remove('hidden'));
+  openFeesBtn.addEventListener('click', () => feesModal.classList.remove('hidden'));
+
+  // Close modals
+  closeAdmissionsBtn.addEventListener('click', () => admissionsModal.classList.add('hidden'));
+  closeFeesBtn.addEventListener('click', () => feesModal.classList.add('hidden'));
+
+  // ================== ADMISSIONS PDF GENERATION ==================
+  const downloadBtn = document.getElementById('downloadPDF');
+  downloadBtn.addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const form = document.getElementById('admissionsForm');
+    const formData = new FormData(form);
+
+    // Header
+    doc.setFontSize(18).setFont("helvetica", "bold");
+    doc.text("TRINITY ACADEMY", 105, 20, { align: "center" });
+    doc.setFontSize(12).setFont("helvetica", "normal");
+    doc.text("Admissions Application Form", 105, 28, { align: "center" });
+    doc.line(20, 32, 190, 32);
+
+    let y = 45;
+
+    // Student Info
+    doc.setFont("helvetica", "bold").setFontSize(12).text("Student Information", 20, y);
+    y += 8;
+    doc.setFont("helvetica", "normal").setFontSize(11);
+    doc.text(`Full Name: ${formData.get("studentName") || ""}`, 20, y);
+    doc.text(`Age: ${formData.get("studentAge") || ""}`, 120, y);
+    y += 7;
+    doc.text(`Class Applying For: ${formData.get("classApplying") || ""}`, 20, y);
+    y += 12;
+
+    // Parent Info
+    doc.setFont("helvetica", "bold").text("Parent/Guardian Information", 20, y);
+    y += 8;
+    doc.setFont("helvetica", "normal");
+    doc.text(`Name: ${formData.get("parentName") || ""}`, 20, y);
+    doc.text(`Phone: ${formData.get("parentPhone") || ""}`, 120, y);
+    y += 7;
+    doc.text(`Email: ${formData.get("parentEmail") || ""}`, 20, y);
+    y += 12;
+
+    // Signature
+    doc.setFont("helvetica", "bold");
+    doc.text("Signature of Parent/Guardian: ____________________", 20, y);
+    y += 12;
+    doc.text("Date: ____________________", 20, y);
+
+    // Passport Photo
+    const fileInput = document.getElementById("passportPhoto");
+    if (fileInput && fileInput.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const imgData = event.target.result;
+        doc.addImage(imgData, "JPEG", 150, 40, 40, 40);
+        doc.save("TrinityAcademy_AdmissionForm.pdf");
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    } else {
+      doc.rect(150, 40, 40, 40);
+      doc.setFontSize(10).text("Passport Photo", 170, 65, { align: "center" });
+      doc.save("TrinityAcademy_AdmissionForm.pdf");
+    }
+  });
+
+  // ================== FEES SUBMISSION ==================
+  const submitFeesBtn = document.getElementById('submitFees');
+  submitFeesBtn.addEventListener('click', () => {
+    const feesForm = document.getElementById('feesForm');
+    const data = new FormData(feesForm);
+    alert(`Payment Submitted for ${data.get("studentName")} (GHS ${data.get("amount")}) via ${data.get("paymentMethod")}`);
+    feesModal.classList.add('hidden');
+  });
+</script>
+
+
+</script>
+
+<!-- === Admissions Section (End) === -->
+
+<!-- ================== RESULTS PORTAL (Class-based Demo with Admin/Teacher/Student + LocalStorage + PDF) ================== -->
+<!-- Tailwind CDN (omit if already loaded) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- jsPDF CDN (omit if already loaded) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<section id="results" class="py-20 bg-gradient-to-b from-white via-blue-50 to-white">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold text-blue-900 mb-3">Results Portal</h2>
+    <p class="text-gray-600 mb-6">click the buttons to check results</p>
+
+    <div class="flex justify-center gap-4">
+      <button id="openAdmin" class="px-6 py-3 bg-blue-900 text-white rounded-lg shadow hover:bg-blue-800 transition">Admin Login</button>
+      <button id="openTeacher" class="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-500 transition">Teacher Login</button>
+      <button id="openStudent" class="px-6 py-3 bg-yellow-400 text-blue-900 rounded-lg shadow hover:bg-yellow-300 transition">Student Portal</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================== ADMIN MODAL ================== -->
+<div id="adminModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-2/3 p-6 relative max-h-[90vh] overflow-y-auto">
+    <button id="closeAdmin" class="absolute top-4 right-4 text-2xl text-blue-700">&times;</button>
+
+    <!-- Admin Login -->
+    <div id="adminLoginPanel">
+      <h3 class="text-xl font-bold text-blue-900 mb-3">Admin Login</h3>
+      <!-- <p class="text-sm text-gray-600 mb-4">Demo creds: <strong>trinity</strong> / <strong>trt1</strong></p> -->
+      <div class="space-y-3 max-w-md">
+        <input id="adminUser" class="w-full border p-2 rounded" placeholder="Username">
+        <input id="adminPass" type="password" class="w-full border p-2 rounded" placeholder="Password">
+        <div class="flex gap-3 justify-end">
+          <button id="adminLoginBtn" class="px-4 py-2 bg-blue-900 text-white rounded">Login</button>
+          <!-- <button id="adminCancelLogin" class="px-4 py-2 bg-gray-100 rounded">Cancel</button> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="hidden">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold text-blue-900">Admin — Manage Classes</h3>
+        <div class="flex gap-2 items-center">
+          <button id="adminLogout" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Logout</button>
+        </div>
+      </div>
+
+      <!-- Create Class -->
+      <div class="bg-gray-50 p-4 rounded mb-4">
+        <h4 class="font-semibold mb-2">Create / Register Class</h4>
+        <div class="grid md:grid-cols-3 gap-3">
+          <input id="classCodeInput" placeholder="Class Code (e.g. JHS2B)" class="border p-2 rounded">
+          <input id="classNameInput" placeholder="Class Name (e.g. JHS 2 Blue)" class="border p-2 rounded">
+          <input id="teacherNameInput" placeholder="Teacher Name" class="border p-2 rounded">
+        </div>
+        <div class="flex gap-3 mt-3 items-center">
+          <input id="teacherCodeInput" placeholder="Teacher Code (or leave blank to auto generate)" class="border p-2 rounded">
+          <button id="generateTeacherCode" class="px-4 py-2 bg-indigo-600 text-white rounded">Generate Code</button>
+          <button id="createClassBtn" class="px-4 py-2 bg-green-600 text-white rounded">Create Class</button>
+        </div>
+      </div>
+
+      <!-- Admin class list -->
+      <div>
+        <h4 class="font-semibold mb-3">Existing Classes</h4>
+        <div id="adminClassesList" class="space-y-3"></div>
+      </div>
+
+      <!-- Edit Head Remark area -->
+      <div class="mt-6 bg-white border rounded p-4">
+        <h4 class="font-semibold mb-2">Set Head's Remark for a Class</h4>
+        <div class="grid md:grid-cols-2 gap-3">
+          <select id="headRemarkClassSelect" class="border p-2 rounded">
+            <option value="">Select class</option>
+          </select>
+          <input id="headRemarkInput" placeholder="Head's remark (e.g. Well done)" class="border p-2 rounded">
+        </div>
+        <div class="flex justify-end mt-3">
+          <button id="saveHeadRemark" class="px-4 py-2 bg-blue-900 text-white rounded">Save Head Remark</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================== TEACHER MODAL ================== -->
+<div id="teacherModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-2/3 p-6 relative max-h-[90vh] overflow-y-auto">
+    <button id="closeTeacher" class="absolute top-4 right-4 text-2xl text-blue-700">&times;</button>
+
+    <!-- Teacher Login -->
+    <div id="teacherLoginPanel">
+      <h3 class="text-xl font-bold text-indigo-700 mb-3">Teacher Login</h3>
+      <p class="text-sm text-gray-600 mb-4">Use the class code and teacher code assigned by admin.</p>
+      <div class="grid md:grid-cols-2 gap-3 max-w-md">
+        <input id="teacherClassCode" placeholder="Class Code (e.g. JHS2B)" class="border p-2 rounded">
+        <input id="teacherSecret" placeholder="Teacher Code" class="border p-2 rounded">
+      </div>
+      <div class="flex justify-end gap-3 mt-3">
+        <button id="teacherLoginBtn" class="px-4 py-2 bg-indigo-600 text-white rounded">Login</button>
+        <button id="teacherCancelLogin" class="px-4 py-2 bg-gray-100 rounded">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Teacher Panel -->
+    <div id="teacherPanel" class="hidden">
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="teacherPanelTitle" class="text-xl font-bold text-indigo-700"></h3>
+        <div>
+          <button id="teacherLogout" class="px-3 py-1 bg-red-100 text-red-700 rounded">Logout</button>
+        </div>
+      </div>
+
+      <!-- Add Student -->
+      <div class="bg-gray-50 p-4 rounded mb-4">
+        <h4 class="font-semibold mb-2">Add / Edit Student & Subjects</h4>
+        <div class="grid md:grid-cols-3 gap-3">
+          <input id="studentIdInput" placeholder="Student ID (unique)" class="border p-2 rounded">
+          <input id="studentNameInput" placeholder="Student Full Name" class="border p-2 rounded">
+          <button id="loadStudentBtn" class="px-3 py-2 bg-gray-100 rounded">Load (for edit)</button>
+        </div>
+
+        <div class="mt-3">
+          <h5 class="font-medium mb-2">Subjects (add one by one)</h5>
+          <div class="grid md:grid-cols-3 gap-3">
+            <input id="subjectNameInput" placeholder="Subject name (e.g. Mathematics)" class="border p-2 rounded">
+            <input id="subjectScoreInput" placeholder="Score (0-100)" type="number" min="0" max="100" class="border p-2 rounded">
+            <div class="flex gap-2">
+              <button id="addSubjToStudent" class="px-3 py-2 bg-indigo-600 text-white rounded">Add Subject</button>
+              <button id="clearSubjectRow" class="px-3 py-2 bg-gray-100 rounded">Clear</button>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <h6 class="font-semibold">Temporary subject list</h6>
+            <ul id="tempStudentSubjects" class="space-y-2 text-gray-700"></ul>
+          </div>
+
+          <div class="flex justify-end mt-3">
+            <button id="saveStudentBtn" class="px-4 py-2 bg-green-600 text-white rounded">Save Student</button>
+            <button id="clearStudentForm" class="px-4 py-2 bg-gray-100 rounded ml-2">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Class students list -->
+      <div>
+        <h4 class="font-semibold mb-2">Class Students</h4>
+        <div id="teacherStudentsList" class="space-y-3"></div>
+      </div>
+
+      <!-- Teacher remark -->
+      <div class="mt-4 bg-white border rounded p-4">
+        <h4 class="font-semibold mb-2">Teacher's Remark (will appear on students' PDFs)</h4>
+        <textarea id="teacherRemarkInput" rows="3" class="w-full border p-2 rounded" placeholder="Teacher's general remark for the class"></textarea>
+        <div class="flex justify-end mt-3">
+          <button id="saveTeacherRemark" class="px-4 py-2 bg-indigo-600 text-white rounded">Save Teacher Remark</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================== STUDENT MODAL ================== -->
+<div id="studentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 p-6 relative max-h-[90vh] overflow-y-auto">
+    <button id="closeStudent" class="absolute top-4 right-4 text-2xl text-blue-700">&times;</button>
+
+    <div id="studentPanel">
+      <h3 class="text-xl font-bold text-blue-900 mb-2">Student Portal — Check Results</h3>
+      <p class="text-sm text-gray-600 mb-4">Enter your class code and student ID to view and download your result.</p>
+
+      <div class="grid md:grid-cols-2 gap-3 mb-3">
+        <input id="studentClassCodeInput" placeholder="Class Code (e.g. JHS2B)" class="border p-2 rounded">
+        <input id="studentIdCheckInput" placeholder="Student ID" class="border p-2 rounded">
+      </div>
+
+      <div class="flex gap-3 mb-4">
+        <button id="studentCheckBtn" class="px-4 py-2 bg-blue-900 text-white rounded">Check Result</button>
+        <button id="studentClearBtn" class="px-4 py-2 bg-gray-100 rounded">Clear</button>
+      </div>
+
+      <div id="studentResultArea" class="mt-4 hidden">
+        <div class="bg-white border rounded-lg p-4 shadow">
+          <div class="flex justify-between items-start">
+            <div>
+              <h4 id="stuResName" class="text-lg font-bold text-blue-900"></h4>
+              <div id="stuResClass" class="text-sm text-gray-600"></div>
+            </div>
+            <div class="text-right">
+              <div id="stuResCode" class="text-sm text-gray-500"></div>
+              <button id="studentDownloadPDF" class="mt-2 px-3 py-1 bg-yellow-400 text-blue-900 rounded">Download PDF</button>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="p-2 border">Subject</th>
+                  <th class="p-2 border">Score</th>
+                  <th class="p-2 border">Grade</th>
+                </tr>
+              </thead>
+              <tbody id="stuResSubjectsBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td class="p-2 border font-semibold">Total</td>
+                  <td id="stuResTotal" class="p-2 border font-semibold"></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="p-2 border font-semibold">Average</td>
+                  <td id="stuResAvg" class="p-2 border font-semibold"></td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+
+            <div class="mt-4">
+              <h5 class="font-semibold">Teacher's Remark</h5>
+              <p id="stuTeacherRemark" class="text-gray-700"></p>
+            </div>
+
+            <div class="mt-3">
+              <h5 class="font-semibold">Head's Remark</h5>
+              <p id="stuHeadRemark" class="text-gray-700"></p>
+            </div>
+
+            <div id="stuDownloadNote" class="mt-3 text-red-600 hidden">Teacher and Head remarks must both be set before downloading the student PDF.</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="studentError" class="mt-4 text-red-600 hidden">Result not found. Please check your class code and student ID.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================== JS: LocalStorage + Admin + Teacher + Student + PDF ================== -->
+<script>
+/* ---------- Utilities & Persistence ---------- */
+const STORAGE_KEY = 'trinity_results_classes';
+
+function loadClasses() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch(e) {
+    return {};
+  }
+}
+function saveClasses(obj) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+}
+function ensureClassStructure(cls) {
+  // default fields
+  cls.students = cls.students || {}; // keyed by studentId
+  cls.teacherRemark = cls.teacherRemark || '';
+  cls.headRemark = cls.headRemark || '';
+  return cls;
+}
+function generateTeacherCode() {
+  const chars = '0123456789ABCDEFGHJKMNP';
+  let s = 'TCH';
+  for (let i=0;i<5;i++) s += chars[Math.floor(Math.random()*chars.length)];
+  return s;
+}
+function generateClassCode() {
+  const chars = '23456789ABCDEFGHJKMNP';
+  let s = 'CLS';
+  for (let i=0;i<5;i++) s += chars[Math.floor(Math.random()*chars.length)];
+  return s;
+}
+function gradeFromScore(score) {
+  const n = Number(score);
+  if (n >= 80) return 'A';
+  if (n >= 70) return 'B';
+  if (n >= 60) return 'C';
+  if (n >= 50) return 'D';
+  return 'F';
+}
+function remarkFromGrade(g) {
+  switch(g) {
+    case 'A': return 'Excellent';
+    case 'B': return 'Very Good';
+    case 'C': return 'Good';
+    case 'D': return 'Pass';
+    default: return 'Fail';
+  }
+}
+
+/* ---------- DOM Elements ---------- */
+// Open buttons
+const openAdminBtn = document.getElementById('openAdmin');
+const openTeacherBtn = document.getElementById('openTeacher');
+const openStudentBtn = document.getElementById('openStudent');
+// Modals
+const adminModal = document.getElementById('adminModal');
+const teacherModal = document.getElementById('teacherModal');
+const studentModal = document.getElementById('studentModal');
+// Close
+document.getElementById('closeAdmin').addEventListener('click', ()=>adminModal.classList.add('hidden'));
+document.getElementById('closeTeacher').addEventListener('click', ()=>teacherModal.classList.add('hidden'));
+document.getElementById('closeStudent').addEventListener('click', ()=>studentModal.classList.add('hidden'));
+
+// Open
+openAdminBtn.addEventListener('click', ()=> adminModal.classList.remove('hidden'));
+openTeacherBtn.addEventListener('click', ()=> teacherModal.classList.remove('hidden'));
+openStudentBtn.addEventListener('click', ()=> studentModal.classList.remove('hidden'));
+
+
+/* ---------- ADMIN LOGIC ---------- */
+const adminLoginBtn = document.getElementById('adminLoginBtn');
+const adminUser = document.getElementById('adminUser');
+const adminPass = document.getElementById('adminPass');
+const adminPanel = document.getElementById('adminPanel');
+const adminLoginPanel = document.getElementById('adminLoginPanel');
+const adminLogout = document.getElementById('adminLogout');
+
+const classCodeInput = document.getElementById('classCodeInput');
+const classNameInput = document.getElementById('classNameInput');
+const teacherNameInput = document.getElementById('teacherNameInput');
+const teacherCodeInput = document.getElementById('teacherCodeInput');
+const generateTeacherCodeBtn = document.getElementById('generateTeacherCode');
+const createClassBtn = document.getElementById('createClassBtn');
+
+const adminClassesList = document.getElementById('adminClassesList');
+const headRemarkClassSelect = document.getElementById('headRemarkClassSelect');
+const headRemarkInput = document.getElementById('headRemarkInput');
+const saveHeadRemark = document.getElementById('saveHeadRemark');
+const resultCodeBox = document.getElementById('resultCodeBox');
+const generatedCodeSpan = document.getElementById('generatedCode');
+
+let classes = loadClasses();
+classes = Object.keys(classes).reduce((acc, k) => {
+  acc[k] = ensureClassStructure(classes[k]);
+  return acc;
+}, classes);
+saveClasses(classes);
+
+function refreshAdminClassList() {
+  adminClassesList.innerHTML = '';
+  headRemarkClassSelect.innerHTML = '<option value="">Select class</option>';
+  const keys = Object.keys(classes);
+  if (keys.length === 0) {
+    adminClassesList.innerHTML = '<div class="text-sm text-gray-500">No classes yet.</div>';
+    return;
+  }
+  keys.forEach(k => {
+    const cls = classes[k];
+    const div = document.createElement('div');
+    div.className = 'bg-white border rounded p-3 flex items-center justify-between shadow-sm';
+    div.innerHTML = `
+      <div>
+        <div class="font-semibold text-blue-800">${cls.className} <span class="text-xs text-gray-500">(${k})</span></div>
+        <div class="text-sm text-gray-600">Teacher: ${cls.teacherName} • Teacher Code: <span class="font-mono text-sm">${cls.teacherCode}</span></div>
+      </div>
+      <div class="flex gap-2">
+        <button class="edit-head px-3 py-1 bg-yellow-100 rounded text-yellow-800">Open</button>
+        <button class="del-class px-3 py-1 bg-red-100 rounded text-red-700">Delete</button>
+      </div>
+    `;
+    adminClassesList.appendChild(div);
+
+    div.querySelector('.edit-head').addEventListener('click', () => {
+      // open admin panel focused on this class
+      headRemarkClassSelect.value = k;
+      headRemarkInput.value = cls.headRemark || '';
+      // also show teacher remark for quick view
+      alert(`Class: ${cls.className}\nTeacher: ${cls.teacherName}\nTeacher Code: ${cls.teacherCode}\nCurrent Teacher Remark: ${cls.teacherRemark || '(none)'}\nHead Remark: ${cls.headRemark || '(none)'}`);
+    });
+    div.querySelector('.del-class').addEventListener('click', () => {
+      if (!confirm(`Delete class ${cls.className} (${k}) and all associated data?`)) return;
+      delete classes[k];
+      saveClasses(classes);
+      refreshAdminClassList();
+    });
+
+    // populate select
+    const opt = document.createElement('option');
+    opt.value = k;
+    opt.textContent = `${cls.className} (${k})`;
+    headRemarkClassSelect.appendChild(opt);
+  });
+}
+
+// generate teacher code
+generateTeacherCodeBtn.addEventListener('click', () => {
+  teacherCodeInput.value = generateTeacherCode();
+});
+
+// create class
+createClassBtn.addEventListener('click', () => {
+  let code = (classCodeInput.value || '').trim();
+  if (!code) code = generateClassCode();
+  if (classes[code]) { alert('Class code already exists. Choose another code.'); return; }
+  const className = (classNameInput.value || '').trim();
+  const teacherName = (teacherNameInput.value || '').trim();
+  let teacherCode = (teacherCodeInput.value || '').trim();
+  if (!className || !teacherName) { alert('Enter class name and teacher name.'); return; }
+  if (!teacherCode) teacherCode = generateTeacherCode();
+
+  classes[code] = ensureClassStructure({
+    classCode: code,
+    className,
+    teacherName,
+    teacherCode,
+    students: {},
+    teacherRemark: '',
+    headRemark: '',
+    createdAt: new Date().toISOString()
+  });
+  saveClasses(classes);
+  refreshAdminClassList();
+
+  // clear inputs
+  classCodeInput.value = ''; classNameInput.value = ''; teacherNameInput.value = ''; teacherCodeInput.value = '';
+  alert(`Class created: ${className} (${code})\nTeacher Code: ${classes[code].teacherCode}`);
+});
+
+// admin login
+adminLoginBtn.addEventListener('click', () => {
+  const u = (adminUser.value||'').trim();
+  const p = (adminPass.value||'').trim();
+  if (u === 'trinity' && p === 'trt1') {
+    adminLoginPanel.classList.add('hidden');
+    adminPanel.classList.remove('hidden');
+    adminUser.value=''; adminPass.value='';
+    refreshAdminClassList();
+  } else {
+    alert('Invalid admin credentials (demo).');
+  }
+});
+document.getElementById('adminCancelLogin').addEventListener('click', ()=> adminModal.classList.add('hidden'));
+adminLogout.addEventListener('click', ()=> {
+  adminPanel.classList.add('hidden');
+  adminLoginPanel.classList.remove('hidden');
+});
+
+// save head remark
+saveHeadRemark.addEventListener('click', () => {
+  const clsKey = headRemarkClassSelect.value;
+  if (!clsKey) return alert('Select a class first.');
+  classes[clsKey].headRemark = (headRemarkInput.value || '').trim();
+  saveClasses(classes);
+  alert('Head remark saved.');
+  refreshAdminClassList();
+});
+
+/* ---------- TEACHER LOGIC ---------- */
+const teacherLoginBtn = document.getElementById('teacherLoginBtn');
+const teacherClassCode = document.getElementById('teacherClassCode');
+const teacherSecret = document.getElementById('teacherSecret');
+
+const teacherLoginPanel = document.getElementById('teacherLoginPanel');
+const teacherPanelDiv = document.getElementById('teacherPanel');
+const teacherPanelTitle = document.getElementById('teacherPanelTitle');
+const teacherLogoutBtn = document.getElementById('teacherLogout');
+
+const studentIdInput = document.getElementById('studentIdInput');
+const studentNameInput = document.getElementById('studentNameInput');
+const loadStudentBtn = document.getElementById('loadStudentBtn');
+
+const subjectNameInput = document.getElementById('subjectNameInput');
+const subjectScoreInput = document.getElementById('subjectScoreInput');
+const addSubjToStudentBtn = document.getElementById('addSubjToStudent');
+const clearSubjectRowBtn = document.getElementById('clearSubjectRow');
+
+const tempStudentSubjects = document.getElementById('tempStudentSubjects');
+const saveStudentBtn = document.getElementById('saveStudentBtn');
+const clearStudentFormBtn = document.getElementById('clearStudentForm');
+const teacherStudentsList = document.getElementById('teacherStudentsList');
+const teacherRemarkInput = document.getElementById('teacherRemarkInput');
+const saveTeacherRemarkBtn = document.getElementById('saveTeacherRemark');
+
+let currentTeacherClass = null; // classKey
+let tempSubjectsArr = [];
+let editingStudentId = null;
+
+function renderTempSubjects() {
+  tempStudentSubjects.innerHTML = '';
+  if (tempSubjectsArr.length === 0) {
+    tempStudentSubjects.innerHTML = '<li class="text-sm text-gray-500">No subjects yet.</li>';
+    return;
+  }
+  tempSubjectsArr.forEach((s,i) => {
+    const li = document.createElement('li');
+    li.className = 'flex items-center justify-between bg-gray-50 p-2 rounded';
+    li.innerHTML = `<div><strong>${s.name}</strong> <span class="ml-2 text-sm text-gray-600">(${s.score})</span></div>
+      <div class="flex gap-2">
+        <button class="edit-temp text-sm text-blue-700 px-2">Edit</button>
+        <button class="del-temp text-sm text-red-600 px-2">Del</button>
+      </div>`;
+    tempStudentSubjects.appendChild(li);
+    li.querySelector('.del-temp').addEventListener('click', () => {
+      tempSubjectsArr.splice(i,1); renderTempSubjects();
+    });
+    li.querySelector('.edit-temp').addEventListener('click', () => {
+      subjectNameInput.value = s.name; subjectScoreInput.value = s.score;
+      tempSubjectsArr.splice(i,1); renderTempSubjects();
+    });
+  });
+}
+
+// teacher login
+teacherLoginBtn.addEventListener('click', () => {
+  const cls = (teacherClassCode.value||'').trim();
+  const tcode = (teacherSecret.value||'').trim();
+  if (!cls || !tcode) return alert('Enter class code and teacher code.');
+  classes = loadClasses();
+  const record = classes[cls];
+  if (!record) return alert('Class not found.');
+  if (record.teacherCode !== tcode) return alert('Invalid teacher code for this class.');
+  // success
+  currentTeacherClass = cls;
+  teacherLoginPanel.classList.add('hidden');
+  teacherPanelDiv.classList.remove('hidden');
+  teacherPanelTitle.textContent = `Teacher — ${record.className} (${cls}) • ${record.teacherName}`;
+  teacherRemarkInput.value = record.teacherRemark || '';
+  renderTeacherStudents();
+});
+
+// add subject to temp list
+addSubjToStudentBtn.addEventListener('click', () => {
+  const name = (subjectNameInput.value||'').trim();
+  const score = (subjectScoreInput.value||'').trim();
+  if (!name || score === '') return alert('Enter subject and score.');
+  const num = Number(score);
+  if (isNaN(num) || num < 0 || num > 100) return alert('Score must be 0-100.');
+  tempSubjectsArr.push({ name, score: num });
+  subjectNameInput.value=''; subjectScoreInput.value='';
+  renderTempSubjects();
+});
+
+// clear subject input row
+clearSubjectRowBtn.addEventListener('click', () => {
+  subjectNameInput.value=''; subjectScoreInput.value='';
+});
+
+// load existing student for edit
+loadStudentBtn.addEventListener('click', () => {
+  if (!currentTeacherClass) return alert('Login first.');
+  const sid = (studentIdInput.value||'').trim();
+  if (!sid) return alert('Enter student ID.');
+  classes = loadClasses();
+  const cls = classes[currentTeacherClass];
+  if (!cls.students[sid]) return alert('Student not found.');
+  const s = cls.students[sid];
+  studentNameInput.value = s.name;
+  tempSubjectsArr = (s.subjects || []).map(x => ({ name: x.name, score: x.score }));
+  renderTempSubjects();
+  editingStudentId = sid;
+});
+
+// save student (new or editing)
+saveStudentBtn.addEventListener('click', () => {
+  if (!currentTeacherClass) return alert('Login first.');
+  const sid = (studentIdInput.value||'').trim();
+  const sname = (studentNameInput.value||'').trim();
+  if (!sid || !sname) return alert('Enter student ID and name.');
+  if (tempSubjectsArr.length === 0) return alert('Add at least one subject.');
+  classes = loadClasses();
+  const cls = classes[currentTeacherClass];
+  // compute totals and grades
+  const subjects = tempSubjectsArr.map(s => ({ name: s.name, score: Number(s.score), grade: gradeFromScore(s.score), gradeRemark: remarkFromGrade(gradeFromScore(s.score)) }));
+  const total = subjects.reduce((a,b)=>a+Number(b.score),0);
+  const avg = (subjects.length > 0) ? (total/subjects.length) : 0;
+  cls.students[sid] = {
+    id: sid,
+    name: sname,
+    subjects,
+    total,
+    average: Number(avg.toFixed(2)),
+    createdAt: new Date().toISOString()
+  };
+  saveClasses(classes);
+  // clear form
+  studentIdInput.value=''; studentNameInput.value=''; tempSubjectsArr=[]; renderTempSubjects(); editingStudentId=null;
+  renderTeacherStudents();
+  alert('Student saved.');
+});
+
+// clear student form
+clearStudentFormBtn.addEventListener('click', () => {
+  studentIdInput.value=''; studentNameInput.value=''; tempSubjectsArr=[]; renderTempSubjects(); editingStudentId=null;
+});
+
+// render students list for teacher
+function renderTeacherStudents() {
+  teacherStudentsList.innerHTML = '';
+  if (!currentTeacherClass) return;
+  classes = loadClasses();
+  const cls = classes[currentTeacherClass];
+  const ids = Object.keys(cls.students || {});
+  if (ids.length === 0) {
+    teacherStudentsList.innerHTML = '<div class="text-sm text-gray-500">No students yet.</div>';
+    return;
+  }
+  ids.forEach(id => {
+    const s = cls.students[id];
+    const div = document.createElement('div');
+    div.className = 'bg-white border rounded p-3 flex items-center justify-between';
+    div.innerHTML = `<div><div class="font-semibold">${s.name} <span class="text-xs text-gray-500">(${id})</span></div>
+                     <div class="text-sm text-gray-600">Subjects: ${s.subjects.length} • Avg: ${s.average}</div></div>
+                     <div class="flex gap-2">
+                       <button class="edit-stu px-3 py-1 bg-yellow-100 rounded text-yellow-800">Edit</button>
+                       <button class="del-stu px-3 py-1 bg-red-100 rounded text-red-700">Delete</button>
+                     </div>`;
+    teacherStudentsList.appendChild(div);
+    div.querySelector('.edit-stu').addEventListener('click', ()=> {
+      studentIdInput.value = s.id;
+      studentNameInput.value = s.name;
+      tempSubjectsArr = (s.subjects || []).map(x=>({name:x.name, score:x.score}));
+      renderTempSubjects();
+      editingStudentId = s.id;
+    });
+    div.querySelector('.del-stu').addEventListener('click', ()=> {
+      if (!confirm(`Delete ${s.name}?`)) return;
+      delete cls.students[id];
+      saveClasses(classes);
+      renderTeacherStudents();
+    });
+  });
+}
+
+// logout
+teacherLogoutBtn.addEventListener('click', ()=> {
+  currentTeacherClass = null;
+  teacherPanelDiv.classList.add('hidden');
+  teacherLoginPanel.classList.remove('hidden');
+  teacherClassCode.value=''; teacherSecret.value='';
+  tempSubjectsArr=[]; renderTempSubjects();
+});
+
+// save teacher remark
+saveTeacherRemarkBtn.addEventListener('click', () => {
+  if (!currentTeacherClass) return alert('Login first.');
+  classes = loadClasses();
+  classes[currentTeacherClass].teacherRemark = (teacherRemarkInput.value || '').trim();
+  saveClasses(classes);
+  alert('Teacher remark saved.');
+});
+
+/* ---------- STUDENT LOGIC ---------- */
+const studentCheckBtn = document.getElementById('studentCheckBtn');
+const studentClassCodeInput = document.getElementById('studentClassCodeInput');
+const studentIdCheckInput = document.getElementById('studentIdCheckInput');
+
+const studentResultArea = document.getElementById('studentResultArea');
+const stuResName = document.getElementById('stuResName');
+const stuResClass = document.getElementById('stuResClass');
+const stuResCode = document.getElementById('stuResCode');
+const stuResSubjectsBody = document.getElementById('stuResSubjectsBody');
+const stuResTotal = document.getElementById('stuResTotal');
+const stuResAvg = document.getElementById('stuResAvg');
+const stuTeacherRemark = document.getElementById('stuTeacherRemark');
+const stuHeadRemark = document.getElementById('stuHeadRemark');
+const stuDownloadNote = document.getElementById('stuDownloadNote');
+const studentDownloadPDF = document.getElementById('studentDownloadPDF');
+
+document.getElementById('studentClearBtn').addEventListener('click', ()=> {
+  studentClassCodeInput.value=''; studentIdCheckInput.value=''; studentResultArea.classList.add('hidden'); document.getElementById('studentError').classList.add('hidden');
+});
+
+studentCheckBtn.addEventListener('click', ()=> {
+  const clsKey = (studentClassCodeInput.value||'').trim();
+  const sid = (studentIdCheckInput.value||'').trim();
+  if (!clsKey || !sid) return alert('Enter class code and student ID.');
+  classes = loadClasses();
+  const cls = classes[clsKey];
+  if (!cls) {
+    document.getElementById('studentError').textContent = 'Class code not found.'; document.getElementById('studentError').classList.remove('hidden'); studentResultArea.classList.add('hidden'); return;
+  }
+  const student = cls.students && cls.students[sid];
+  if (!student) {
+    document.getElementById('studentError').textContent = 'Student ID not found in this class.'; document.getElementById('studentError').classList.remove('hidden'); studentResultArea.classList.add('hidden'); return;
+  }
+  // populate UI
+  document.getElementById('studentError').classList.add('hidden');
+  studentResultArea.classList.remove('hidden');
+  stuResName.textContent = student.name;
+  stuResClass.textContent = cls.className + ' ('+clsKey+')';
+  stuResCode.textContent = `Class code: ${clsKey} • Student ID: ${student.id}`;
+  stuResSubjectsBody.innerHTML = '';
+  let total = 0;
+  student.subjects.forEach(s => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="p-2 border">${s.name}</td><td class="p-2 border">${s.score}</td><td class="p-2 border">${s.grade}</td>`;
+    stuResSubjectsBody.appendChild(tr);
+    total += Number(s.score);
+  });
+  const avg = student.subjects.length ? (total / student.subjects.length).toFixed(2): '0';
+  stuResTotal.textContent = total;
+  stuResAvg.textContent = avg;
+  stuTeacherRemark.textContent = cls.teacherRemark || '(No teacher remark yet)';
+  stuHeadRemark.textContent = cls.headRemark || '(No head remark yet)';
+
+  // download enabled only if both remarks present
+  if (cls.teacherRemark && cls.headRemark) {
+    stuDownloadNote.classList.add('hidden');
+    studentDownloadPDF.disabled = false;
+  } else {
+    stuDownloadNote.classList.remove('hidden');
+    studentDownloadPDF.disabled = true;
+  }
+});
+
+/* ---------- PDF for student result (includes grades & remarks) ---------- */
+studentDownloadPDF.addEventListener('click', ()=> {
+  const clsKey = (studentClassCodeInput.value||'').trim();
+  const sid = (studentIdCheckInput.value||'').trim();
+  const classesLocal = loadClasses();
+  const cls = classesLocal[clsKey];
+  if (!cls) return alert('Class not found.');
+  const student = (cls.students||{})[sid];
+  if (!student) return alert('Student not found.');
+  if (!cls.teacherRemark || !cls.headRemark) return alert('Both teacher and head remarks are required before downloading.');
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Header
+  doc.setFontSize(18).setFont("helvetica","bold");
+  doc.text("TRINITY ACADEMY", 105, 18, { align: "center" });
+  doc.setFontSize(12).setFont("helvetica","normal");
+  doc.text("Official Result Sheet", 105, 26, { align: "center" });
+  doc.line(20, 30, 190, 30);
+
+  let y = 40;
+  doc.setFont("helvetica","bold").setFontSize(11);
+  doc.text(`Name:`, 20, y);
+  doc.text(`Class:`, 110, y);
+  doc.setFont("helvetica","normal");
+  doc.text(student.name, 34, y);
+  doc.text(cls.className, 130, y);
+  y += 8;
+  doc.setFont("helvetica","bold");
+  doc.text(`Student ID: ${student.id}`, 20, y);
+  doc.text(`Class Code: ${clsKey}`, 110, y);
+  y += 10;
+  doc.setFontSize(11).setFont("helvetica","bold");
+  doc.text("Subject", 20, y);
+  doc.text("Score", 120, y);
+  doc.text("Grade", 160, y);
+  y += 6;
+  doc.setLineWidth(0.5);
+  doc.line(20, y, 190, y);
+  y += 6;
+
+  doc.setFont("helvetica","normal");
+
+  let total = 0;
+  student.subjects.forEach(s => {
+    if (y > 260) { doc.addPage(); y = 20; }
+    doc.text(s.name, 20, y);
+    doc.text(String(s.score), 120, y);
+    doc.text(s.grade, 160, y);
+    y += 7;
+    total += Number(s.score);
+  });
+
+  const avg = student.subjects.length ? (total / student.subjects.length).toFixed(2) : '0';
+  y += 6;
+  doc.setFont("helvetica","bold");
+  doc.text("Total:", 20, y); doc.text(String(total), 120, y);
+  y += 7;
+  doc.text("Average:", 20, y); doc.text(String(avg), 120, y);
+  y += 12;
+
+  // Remarks
+  doc.setFont("helvetica","bold");
+  doc.text("Teacher's Remark:", 20, y);
+  doc.setFont("helvetica","normal");
+  doc.text(cls.teacherRemark, 20, y+6, { maxWidth: 170 });
+  y += 18;
+  doc.setFont("helvetica","bold");
+  doc.text("Head's Remark:", 20, y);
+  doc.setFont("helvetica","normal");
+  doc.text(cls.headRemark, 20, y+6, { maxWidth: 170 });
+  y += 26;
+
+  // Signature placeholders
+  doc.text("__________________________", 20, y);
+  doc.text("Teacher Signature", 20, y + 6);
+  doc.text("__________________________", 110, y);
+  doc.text("Head Signature", 110, y + 6);
+  y += 16;
+  doc.text(`Generated: ${new Date().toLocaleString()}`, 20, y);
+
+  // filename
+  const filename = `Result_${student.name.replace(/\s+/g,'_')}_${clsKey}_${student.id}.pdf`;
+  doc.save(filename);
+});
+
+/* ---------- Persistence: load classes on start ---------- */
+refreshAdminClassList();
+
+</script>
+
+<!-- Gallery Section -->
+<section id="gallery" class="py-16 bg-gray-100">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-center text-blue-900 mb-8">Gallery</h2>
+
+    <!-- Filter Buttons -->
+    <div class="flex flex-wrap justify-center gap-4 mb-10">
+      <button class="filter-btn bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-700 active" data-category="all">All</button>
+      <button class="filter-btn bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-700" data-category="events">Events</button>
+      <button class="filter-btn bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-700" data-category="sports">Sports</button>
+      <button class="filter-btn bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-700" data-category="classrooms">Classrooms</button>
+      <button class="filter-btn bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-700" data-category="trips">Trips</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Example Images -->
+      <div class="gallery-item events">
+        <img src="2.webp" alt="Event" class="w-full h-60 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition-transform duration-300">
+      </div>
+      <div class="gallery-item sports">
+        <img src="4.jpg" alt="Sports" class="w-full h-60 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition-transform duration-300">
+      </div>
+      <div class="gallery-item classrooms">
+        <img src="3.jpg" alt="Classroom" class="w-full h-60 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition-transform duration-300">
+      </div>
+      <div class="gallery-item trips">
+        <img src="a.jpg" alt="Trip" class="w-full h-60 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition-transform duration-300">
+      </div>
+      <div class="gallery-item events">
+        <img src="5.jpg" alt="Event 2" class="w-full h-60 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition-transform duration-300">
+      </div>
+      <div class="gallery-item sports">
+        <img src="p1.jpg" alt="Sports 2" class="w-full h-60 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition-transform duration-300">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50">
+  <span id="lightbox-close" class="absolute top-6 right-8 text-white text-4xl cursor-pointer">&times;</span>
+  <img id="lightbox-img" class="max-w-3xl w-full rounded-lg shadow-lg">
+</div>
+
+<!-- JS -->
+<script>
+  // Gallery filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // remove active
+      filterBtns.forEach(b => b.classList.remove('bg-blue-600'));
+      btn.classList.add('bg-blue-600');
+
+      const category = btn.getAttribute('data-category');
+
+      galleryItems.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.style.display = 'block';
+          item.style.opacity = 0;
+          setTimeout(() => { item.style.opacity = 1; }, 50);
+        } else {
+          item.style.opacity = 0;
+          setTimeout(() => { item.style.display = 'none'; }, 300);
+        }
+      });
+    });
+  });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('.gallery-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      lightboxImg.src = img.src;
+    });
+  });
+
+  lightboxClose.addEventListener('click', () => {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+    }
+  });
+</script>
+
+<!-- Contact Section -->
+<section id="contact" class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-center text-blue-900 mb-10">Contact Us</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+      <!-- Contact Info -->
+      <div class="space-y-6">
+        <h3 class="text-xl font-semibold text-blue-800">Get in Touch</h3>
+        <p class="text-gray-700">We’d love to hear from you! Whether you have a question about admissions, academics, or anything else, our team is ready to help.</p>
+        <div class="space-y-3">
+          <p class="flex items-center"><span class="text-blue-700 font-bold mr-2">📍</span> Dome-Pillar 2, Accra, Ghana</p>
+          <p class="flex items-center"><span class="text-blue-700 font-bold mr-2">📞</span> +233 50 765 1731</p>
+          <p class="flex items-center"><span class="text-blue-700 font-bold mr-2">✉️</span> trinityacademydome@gmail.com</p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+        <form id="contact-form" class="space-y-4">
+          <div>
+            <label class="block text-gray-700">Full Name</label>
+            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 focus:outline-none" required>
+          </div>
+          <div>
+            <label class="block text-gray-700">Email</label>
+            <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 focus:outline-none" required>
+          </div>
+          <div>
+            <label class="block text-gray-700">Message</label>
+            <textarea rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-600 focus:outline-none" required></textarea>
+          </div>
+          <button type="submit" class="bg-blue-800 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition ease-in-out">Send Message</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white py-10 mt-16">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+
+    <!-- About -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Trinity Academy</h3>
+      <p class="text-gray-300">Shaping the future through excellence in education, discipline, and character development.</p>
+      
+      <!-- Social Media -->
+      <div class="flex space-x-4 mt-4">
+        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-blue-800 transform transition duration-300 hover:scale-110 hover:bg-blue-600 hover:text-white ease-in-out">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-green-600 transform transition duration-300 hover:scale-110 hover:bg-green-600 hover:text-white ease-in-out">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-pink-600 transform transition duration-300 hover:scale-110 hover:bg-pink-600 hover:text-white ease-in-out">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-sky-500 transform transition duration-300 hover:scale-110 hover:bg-sky-500 hover:text-white ease-in-out">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+        <li><a href="#about" class="hover:text-gray-300 transition">About Us</a></li>
+        <li><a href="#academics" class="hover:text-gray-300 transition">Academics</a></li>
+        <li><a href="#admissions" class="hover:text-gray-300 transition">Admissions</a></li>
+        <li><a href="#results" class="hover:text-gray-300 transition">Results Portal</a></li>
+        <li><a href="#gallery" class="hover:text-gray-300 transition">Gallery</a></li>
+        <li><a href="#contact" class="hover:text-gray-300 transition">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Newsletter</h3>
+      <p class="text-gray-300 mb-4">Subscribe to stay updated with our news & events.</p>
+      <form class="flex">
+        <input type="email" placeholder="Enter your email" class="w-full px-3 py-2 rounded-l-lg border-0 focus:ring-2 focus:ring-blue-400 text-black" required>
+        <button type="submit" class="bg-yellow-400 text-blue-900 px-4 py-2 rounded-r-lg hover:bg-yellow-300 transition">Subscribe</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="text-center text-gray-400 mt-10 border-t border-blue-700 pt-6">
+    &copy; <span id="year"></span> Trinity Academy. All Rights Reserved.
+  </div>
+</footer>
+
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+
+<script>
+  // Dynamic year
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</script>
+
+
+  <!-- JS -->
+  <script>
+    // --- Navbar shrink on scroll ---
+    window.addEventListener("scroll", () => {
+      const header = document.querySelector("header");
+      if (window.scrollY > 50) {
+        header.classList.add("shrink");
+      } else {
+        header.classList.remove("shrink");
+      }
+    });
+
+    // --- Mobile menu toggle ---
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('max-h-0');
+      mobileMenu.classList.toggle('max-h-[600px]');
+    });
+
+    // --- Mobile accordion ---
+    const accordions = document.querySelectorAll(".accordion");
+    accordions.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const panel = btn.nextElementSibling;
+        panel.classList.toggle("show");
+      });
+    });
+
+    // --- Desktop dropdown click toggle ---
+    document.querySelectorAll('.dropdown').forEach(drop => {
+      const btn = drop.querySelector('.dropdown-btn');
+      const menu = drop.querySelector('.dropdown-menu');
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.dropdown-menu').forEach(m => { m.classList.remove('show'); m.classList.add('hidden'); });
+        document.querySelectorAll('.dropdown-btn').forEach(b => b.classList.remove('active'));
+
+        menu.classList.remove('hidden');
+        menu.classList.toggle('show');
+        if (menu.classList.contains('show')) {
+          btn.classList.add('active');
+        }
+      });
+    });
+
+    // Close dropdown if clicking outside
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown-menu').forEach(m => { m.classList.remove('show'); m.classList.add('hidden'); });
+      document.querySelectorAll('.dropdown-btn').forEach(b => b.classList.remove('active'));
+    });
+
+    // --- Hero slider ---
+    let slideIndex = 0;
+    let slides = document.querySelectorAll(".hero-slide");
+    let dots = document.querySelectorAll(".dot");
+    let timer;
+
+    function showSlide(n) {
+      slides.forEach((s, i) => {
+        s.classList.remove("active");
+        dots[i].classList.remove("bg-white");
+        dots[i].classList.add("bg-gray-400");
+      });
+      slides[n].classList.add("active");
+      dots[n].classList.add("bg-white");
+      dots[n].classList.remove("bg-gray-400");
+      slideIndex = n;
+    }
+
+    function nextSlide() {
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    function prevSlide() {
+      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    function startAutoPlay() { timer = setInterval(nextSlide, 5000); }
+    function stopAutoPlay() { clearInterval(timer); }
+
+    document.getElementById("next").addEventListener("click", () => { stopAutoPlay(); nextSlide(); startAutoPlay(); });
+    document.getElementById("prev").addEventListener("click", () => { stopAutoPlay(); prevSlide(); startAutoPlay(); });
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => { stopAutoPlay(); showSlide(i); startAutoPlay(); });
+    });
+
+    showSlide(0);
+    startAutoPlay();
+  </script>
+</body>
+</html>
